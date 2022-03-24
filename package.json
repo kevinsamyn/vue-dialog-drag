@@ -1,6 +1,6 @@
 {
   "name": "vue-dialog-drag",
-  "version": "0.1.29",
+  "version": "1.0.0",
   "description": "A Vue Draggable Dialog Component",
   "author": "emi",
   "scripts": {

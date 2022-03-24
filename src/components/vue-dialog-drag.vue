@@ -1,15 +1,14 @@
 <template lang="pug">
   .dialog-drag(
     :id='id'
-    :draggable='drag'
+
     :class='(!drag) ? "fixed":""'
     :style='dialogStyle'
-    @mousedown='mouseDown'
-    @touchstart.prevent='touchStart'
-    @touchmove.passive='touchMove'
-    @touchend.stop='touchEnd'
     )
-    .dialog-header(@dragstart.stop='')
+    .dialog-header(
+    :draggable='drag'
+    @dragstart.stop=''
+    @mousedown='mouseDown')
       .title
         //- Title slot
         slot(name='title')
@@ -165,17 +164,17 @@ export default {
       }
     },
     mouseDown (event) {
+      this.startMove(event)
       if (!this.dragging) this.focus()
       if (!this.dropEnabled) {
         if (this.drag) event.preventDefault()
-        this.startMove(event)
       }
     },
     mouseMove (event) {
       // event.preventDefault()
       if (!this.dropEnabled && this.dragging && this.drag) {
         // event.stopPropagation()
-        setTimeout(this.move(event), 50)
+        setTimeout(this.move(event), 10)
       }
     },
     mouseUp (event) {
@@ -301,7 +300,7 @@ export default {
     background-color white
     box-shadow $sh
     height auto
-    animation-duration 0.2s
+    animation-duration 0.0s
     animation-name dialog-anim
     animation-timing-function ease-in
 
@@ -313,6 +312,7 @@ export default {
       font-size 0.9em
       background-color $color
       color white
+      cursor pointer
 
       .buttons
         position absolute
